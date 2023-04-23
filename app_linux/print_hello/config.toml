@@ -1,0 +1,19 @@
+[build]
+target = "riscv64gc-unknown-linux-gnu"
+
+[target.riscv64gc-unknown-linux-gnu]
+linker = "riscv64-linux-gnu-gcc"
+runner = "qemu-riscv64 "
+
+rustflags = [
+    # "-Clink-arg=-Tsrc/linker.ld", 
+    # "-Cforce-frame-pointers=yes"
+
+    # LLD (shipped with the Rust toolchain) is used as the default linker
+    # "-C", "link-arg=-Tlink.x",
+    # "-C", "link-arg=-fPIC",
+    "-C", "target-feature=+crt-static",
+]
+
+# [target.'cfg(target_os = "linux")']
+# rustflags = ["-C", "link-arg=-nostartfiles"]

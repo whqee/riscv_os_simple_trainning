@@ -1,0 +1,14 @@
+[build]
+target = "riscv64gc-unknown-none-elf"
+
+[target.riscv64gc-unknown-none-elf]
+runner = "qemu-system-riscv64 -m 128 -M virt -nographic -bios none  -smp 1 -drive if=none,format=raw,file=test.raw,id=hd0 -device virtio-blk-device,drive=hd0 -kernel "
+
+rustflags = [
+    # "-Clink-arg=-Tsrc/linker.ld", 
+    # "-Cforce-frame-pointers=yes"
+
+    # LLD (shipped with the Rust toolchain) is used as the default linker
+    "-C", "link-arg=-Tlink.x",
+    # "-C", "-march=rv64gcv", CFLAGS_riscv64gc_unknown_none_elf="-march=rv64gcv" cargo build --release
+]
